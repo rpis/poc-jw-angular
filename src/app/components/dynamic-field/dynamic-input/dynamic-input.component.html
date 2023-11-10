@@ -1,0 +1,22 @@
+<form [formGroup]="formName">
+  <mat-form-field *ngIf="field.type != 'date'" class="example-form-field">
+    <mat-label>{{ field.label }} </mat-label>
+
+    <input matInput [type]="field.type" [formControlName]="field.fieldName" />
+  </mat-form-field>
+
+  <mat-form-field *ngIf="field.type == 'date'" class="example-form-field">
+    <mat-label>{{ field.label }}</mat-label>
+    <input
+      matInput
+      [formControlName]="field.fieldName"
+      [matDatepicker]="picker"
+    />
+
+    <mat-hint>DD.MM.RRRR</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+    <!--input matInput [type]="field.type"  /-->
+  </mat-form-field>
+</form>

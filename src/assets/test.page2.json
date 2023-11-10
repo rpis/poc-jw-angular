@@ -1,0 +1,73 @@
+{
+  "menuName": "Raport ACA",
+  "raportName": "ACA",
+  "pageName": "basic-report",
+  "selection": {
+    "modkey1": {
+      "row": "1",
+      "type": "text",
+      "value": "",
+      "label": "Numer aca",
+      "rules": {
+        "required": true
+      }
+    },
+    "dateFrom": {
+      "row": "1",
+      "type": "date",
+      "value": "",
+      "label": "Od daty"
+    },
+    "dateTo": {
+      "row": "1",
+      "type": "date",
+      "value": "",
+      "label": "Do daty"
+    },
+
+    "filename": {
+      "row": "1",
+      "type": "text",
+      "value": "",
+      "label": "Plik"
+    },
+    "fldname": {
+      "row": "1",
+      "type": "text",
+      "value": "",
+      "label": "Pole"
+    }
+  },
+  "list": {
+    "userid": {
+      "visualName": "userid"
+    },
+    "modkey1": {
+      "visualName": "modkey1"
+    },
+    "modkey2": {
+      "visualName": "modkey2"
+    },
+    "modkey3": {
+      "visualName": "modkey3"
+    },
+    "moddate": {
+      "visualName": "moddate"
+    },
+    "oldval": {
+      "visualName": "oldval"
+    },
+    "newval": {
+      "visualName": "newval"
+    },
+    "modtype": {
+      "visualName": "modtype"
+    },
+    "filename": {
+      "visualName": "filename"
+    },
+    "fldname": {
+      "visualName": "fldname"
+    }
+  }
+}

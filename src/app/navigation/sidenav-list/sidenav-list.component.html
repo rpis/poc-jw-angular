@@ -1,0 +1,19 @@
+<mat-nav-list>
+  <a
+    *ngFor="let menu of menuConfig"
+    mat-list-item
+    routerLink="/{{ menu.pageName }}"
+    [queryParams]="{ report: menu.raportName }"
+    (click)="onClose()"
+  >
+    <mat-icon>user</mat-icon>
+    <span class="nav-caption">{{ menu.menuName }}</span>
+  </a>
+
+  <!--mat-list-item>
+    <button mat-icon-button onclick="onLogout()">
+      <mat-icon>eject</mat-icon>
+      <span class="nav-caption">{{ "header.LOGOUT" }}</span>
+    </button>
+  </mat-list-item-->
+</mat-nav-list>

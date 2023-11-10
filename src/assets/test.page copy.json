@@ -1,0 +1,149 @@
+{
+  "selection": {
+    "firstname": {
+      "row": "1",
+      "type": "text",
+      "value": "",
+      "label": "FirstName",
+      "rules": {
+        "required": true
+      }
+    },
+    "lastname": {
+      "row": "1",
+      "type": "text",
+      "value": "",
+      "label": "LastName"
+    },
+    "address": {
+      "row": "1",
+      "type": "text",
+      "value": "",
+      "label": "Address"
+    },
+    "age": {
+      "row": "2",
+      "type": "number",
+      "value": "",
+      "label": "Age",
+      "rules": {
+        "required": true,
+        "number": true
+      }
+    },
+    "birthDay": {
+      "row": "1",
+      "type": "date",
+      "value": "",
+      "label": "Birthday"
+    },
+    "typeBussines": {
+      "row": "2",
+      "label": "Bussines Type",
+      "value": "premium",
+      "type": "radio",
+      "options": [
+        {
+          "label": "Enterprise",
+          "value": "1500"
+        },
+        {
+          "label": "Home",
+          "value": "6"
+        },
+        {
+          "label": "Personal",
+          "value": "1"
+        }
+      ]
+    },
+    "newsletterIn": {
+      "row": "2",
+      "label": "Suscribe to newsletter",
+      "value": "email",
+      "type": "checkbox"
+    },
+    "subscriptionType": {
+      "row": "2",
+      "label": "Suscription Type",
+      "value": "premium",
+      "type": "select",
+      "options": [
+        {
+          "label": "Pick one",
+          "value": ""
+        },
+        {
+          "label": "Premium",
+          "value": "premium"
+        },
+        {
+          "label": "Basic",
+          "value": "basic"
+        }
+      ]
+    },
+    "country": {
+      "row": "3",
+      "id": "country",
+      "label": "Country",
+      "type": "select",
+      "options": [
+        {
+          "label": "Spain",
+          "value": "ES"
+        },
+        {
+          "label": "USA",
+          "value": "US"
+        }
+      ],
+      "provideData": [
+        {
+          "label": "Barcelona",
+          "sourceValue": "ES",
+          "value": "BCN"
+        },
+        {
+          "label": "Madrid",
+          "sourceValue": "ES",
+          "value": "MDN"
+        },
+        {
+          "label": "New York",
+          "sourceValue": "US",
+          "value": "NYC"
+        },
+        {
+          "label": "Cleveland",
+          "sourceValue": "CLV",
+          "value": "E"
+        }
+      ]
+    },
+    "city": {
+      "row": "3",
+      "label": "City",
+      "type": "select",
+      "link": "country",
+      "value": "",
+      "options": [
+        {
+          "label": "Select Country First",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "list": {
+    "userid": {
+      "visualName": "jakis user"
+    },
+    "modkey1": {
+      "visualName": "jakis modkey1"
+    },
+    "modkey2": {
+      "visualName": "MOD KEY2"
+    }
+  }
+}

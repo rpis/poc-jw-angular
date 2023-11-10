@@ -1,0 +1,28 @@
+
+.mat-nav-list {
+    height: 100px;
+}
+
+mat-sidenav {
+    width: 100px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a.hover,
+a.active {
+    color: lightgray;
+}
+
+
+example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+}

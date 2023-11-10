@@ -1,0 +1,4 @@
+{
+  "storeUrl": "http://localhost:3000",
+  "page_configs": ["test.page.json", "test.page2.json"]
+}
