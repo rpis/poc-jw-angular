@@ -19,7 +19,6 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSelectModule } from "@angular/material/select";
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { DynamicListComponent } from "./components/dynamic-list/dynamic-list.component";
 import { MatTableModule } from "@angular/material/table";
 import { PreloadFactory } from "./core/preload.factory";
@@ -40,6 +39,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { BasicReportComponent } from "./basic-report/basic-report.component";
 import { StartPageComponent } from "./start-page/start-page.component";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import {
   DateAdapter,
@@ -75,7 +75,6 @@ const MY_DATE_FORMAT = {
     MatRadioModule,
     MatCheckboxModule,
     MatSelectModule,
-    FlexLayoutModule,
     MatTableModule,
     HttpClientModule,
     MatButtonModule,
@@ -88,6 +87,7 @@ const MY_DATE_FORMAT = {
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    FlexLayoutModule,
     RouterModule.forRoot(APP_ROUTES),
   ],
   declarations: [

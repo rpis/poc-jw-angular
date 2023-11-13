@@ -61,6 +61,10 @@ export class BasicReportComponent {
         this.childForm.setModel(this.selectModel);
         this.childForm.buildForm();
       }
+      if (this.childList != null) {
+        this.childList.hideTable();
+        this.childList.setModel(this.listModel);
+      }
     });
   }
 
@@ -86,9 +90,9 @@ export class BasicReportComponent {
         var date: Date = new Date(
           Date.parse(this.dynamicFormGroup.get(k).value)
         );
-
+        console.log("parsedDare:" + date);
         criteria.set(k, {
-          value: date.toISOString(),
+          value: isNaN(date.getTime()) == false ? date.toISOString() : "",
         });
       } else
         criteria.set(k, {
@@ -99,7 +103,7 @@ export class BasicReportComponent {
     //var s = await this.store.getData(criteria);
     //console.log("s=" + s[0].userid);
     this.showList = true;
-    this.childList.setModel(this.listModel);
+
     this.childList.search(test);
     this.showList = true;
   }

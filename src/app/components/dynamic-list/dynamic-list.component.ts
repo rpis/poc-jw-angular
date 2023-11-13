@@ -11,23 +11,30 @@ import { Model } from "../../model/model";
 export class DynamicListComponent {
   @Input() model: {};
   public fields = [];
+  public columns = [];
+
+  showTable = false;
 
   displayedColumns = [];
 
-  dataSource = new UserDataSource(null, null);
+  dataSource = new UserDataSource();
 
   constructor() {}
 
   private buildFields() {
-    //this.fields = [];
-    //this.displayedColumns = [];
+    this.fields = [];
+    this.columns = [];
+    this.displayedColumns = [];
     console.log("setted model len:" + Object.keys(this.model).length);
     for (const field of Object.keys(this.model)) {
       const fieldProps = this.model[field];
       console.log({ ...fieldProps, fieldName: field });
       this.fields.push({ ...fieldProps, fieldName: field });
+      this.columns.push(field);
       this.displayedColumns.push(field);
     }
+    this.displayedColumns = this.displayedColumns.slice();
+    this.fields = this.fields.slice();
   }
 
   public setModel(model) {
@@ -35,39 +42,15 @@ export class DynamicListComponent {
     this.buildFields();
   }
 
-  ngOnInit(): void {
-    console.log("Model: " + this.model);
-    this.buildFields();
-    Object.keys(this.model).forEach((k) => {
-      console.log(k);
-      console.log(this.model[k]);
-    });
-    //this.displayedColumns = Object.keys(this.model);
-    //this.dataSource.observable = new Observable((subscriber) => {
-    //  console.log("Hello");
-    //  subscriber.next([
-    //    {
-    //      userid: "1",
-    //      modkey1: "ble",
-    //    },
-    //  ]);
-    //});
+  public hideTable() {
+    this.dataSource.observable.emit([]);
+    this.showTable = false;
   }
-
   public search(criteria: any) {
     console.log("search ! " + criteria.length);
-
-    //Object.keys(this.model).forEach((k) => {
-    //  console.log(k);
-    //  console.log(this.model[k]);
-    //});
-    //this.displayedColumns = Object.keys(this.model);
+    this.showTable = true;
+    this.buildFields();
     this.dataSource.observable.emit(criteria);
-
-    //) = new Observable((subscriber) => {
-    //  console.log("Hello");
-    //  subscriber.next([]);
-    //});
   }
   onSelectionChange(event: any) {
     console.log(event);
@@ -87,22 +70,10 @@ export class DynamicListComponent {
 export class UserDataSource extends DataSource<any> {
   public observable: EventEmitter<Model[]> = new EventEmitter<Model[]>();
 
-  constructor(private registryService: any, private cif: string) {
-    console.log("registry cif : " + cif);
+  constructor() {
     super();
   }
   connect(): Observable<Model[]> {
-    /*this.observable = new Observable((subscriber) => {
-      console.log("Hello");
-      subscriber.next([
-        {
-          userid: "1",
-          modkey1: "testmod",
-        },
-      ]);
-    });*/
-
-    //Observable.apply(); //this.registryService.getRegistry(this.cif);
     return this.observable;
   }
   disconnect() {}
