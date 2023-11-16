@@ -1,4 +1,7 @@
 {
-  "storeUrl": "http://localhost:3000",
+  "storeUrl2": "http://localhost:3000/api",
+  "storeUrl": "https://jw2-app-service.azurewebsites.net/api",
+
+  "msalClientId": "a2b970e8-5fd3-48e3-9d64-29062e2b63d0",
   "page_configs": ["test.page.json", "test.page2.json"]
 }

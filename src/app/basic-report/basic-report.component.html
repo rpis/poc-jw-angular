@@ -4,6 +4,19 @@
   (dynamicFormGroupEvent)="setDynamicFormGroup($event)"
 ></app-dynamic-form>
 
-<button mat-raised-button color="accent" (click)="search()">search</button>
+<button
+  mat-raised-button
+  *ngIf="searchVisible"
+  [disabled]="!isValid"
+  color="accent"
+  (click)="search()"
+>
+  search
+</button>
 
 <app-dynamic-list [model]="listModel"></app-dynamic-list>
+<div *ngIf="isLoading" class="spinner-wrapper">
+  <div>
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

@@ -38,7 +38,9 @@ export class BasicReportComponent {
   listModel = {};
   reportName = "";
   showList = false;
-
+  isLoading = false;
+  isValid = false;
+  searchVisible = true;
   constructor(
     private config: ConfigService,
     private store: StoreService,
@@ -50,20 +52,106 @@ export class BasicReportComponent {
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((val) => {
+    this.activatedRoute.queryParams.subscribe(async (val) => {
       console.log("query:" + val["report"]);
-      this.selectModel = this.config.getSelectionForPage(val["report"]);
-      this.listModel = this.config.getListForPage(val["report"]);
-      this.reportName = this.config.getReportNameForPage(val["report"]);
-      console.log(JSON.stringify(this.selectModel));
-      console.log(JSON.stringify(this.listModel));
-      if (this.childForm != null) {
-        this.childForm.setModel(this.selectModel);
-        this.childForm.buildForm();
+      if (val["id"] == undefined) {
+        this.selectModel = this.config.getSelectionForPage(val["report"]);
+        this.listModel = this.config.getListForPage(val["report"]);
+        this.reportName = this.config.getReportNameForPage(val["report"]);
+        this.searchVisible = true;
+        console.log(JSON.stringify(this.selectModel));
+        console.log(JSON.stringify(this.listModel));
+        if (this.childForm != null) {
+          this.childForm.setModel(this.selectModel);
+          this.childForm.buildForm();
+        }
+        if (this.childList != null) {
+          this.childList.hideTable();
+          this.childList.setModel(this.listModel);
+        }
+      } else {
+        console.log("id:" + val["id"]);
+        this.searchVisible = false;
+        this.isLoading = true;
+        var history: any = await this.store.getHistoryData(val["id"]);
+        this.isLoading = false;
+        this.selectModel = this.config.getSelectionForPage(val["report"]);
+        // ustawienie wartosci z response
+        var map: any = new Map(history.criteria);
+        console.log("map" + map);
+
+        Object.keys(this.selectModel).map((model) => {
+          if (map.get(model) != undefined) {
+            console.log("key model: " + model);
+            console.log("key value: " + map.get(model).value);
+            this.selectModel[model].value = map.get(model).value;
+          }
+        });
+        this.listModel = this.config.getListForPage(val["report"]);
+        this.reportName = this.config.getReportNameForPage(val["report"]);
+        console.log(JSON.stringify(this.selectModel));
+        console.log(JSON.stringify(this.listModel));
+        if (this.childForm != null) {
+          this.childForm.setModel(this.selectModel);
+          this.childForm.buildForm();
+        }
+        if (this.childList != null) {
+          this.childList.hideTable();
+          this.childList.setModel(this.listModel);
+          this.childList.search(history.response);
+        }
       }
-      if (this.childList != null) {
-        this.childList.hideTable();
-        this.childList.setModel(this.listModel);
+    });
+  }
+  ngDoCheck2() {
+    this.activatedRoute.queryParams.subscribe(async (val) => {
+      console.log("query:" + val["report"]);
+      if (val["id"] == undefined) {
+        this.selectModel = this.config.getSelectionForPage(val["report"]);
+        this.listModel = this.config.getListForPage(val["report"]);
+        this.reportName = this.config.getReportNameForPage(val["report"]);
+        this.searchVisible = true;
+        console.log(JSON.stringify(this.selectModel));
+        console.log(JSON.stringify(this.listModel));
+        if (this.childForm != null) {
+          this.childForm.setModel(this.selectModel);
+          this.childForm.buildForm();
+        }
+        if (this.childList != null) {
+          this.childList.hideTable();
+          this.childList.setModel(this.listModel);
+        }
+      } else {
+        console.log("id:" + val["id"]);
+        this.searchVisible = false;
+        this.isLoading = true;
+        var history: any = await this.store.getHistoryData(val["id"]);
+        this.isLoading = false;
+        this.selectModel = this.config.getSelectionForPage(val["report"]);
+        // ustawienie wartosci z response
+        var map: any = new Map(history.criteria);
+        console.log("map" + map);
+
+        Object.keys(this.selectModel).map((model) => {
+          if (map.get(model) != undefined) {
+            console.log("key model: " + model);
+            console.log("key value: " + map.get(model).value);
+            this.selectModel[model].value = map.get(model).value;
+          }
+        });
+        this.listModel = this.config.getListForPage(val["report"]);
+        this.reportName = this.config.getReportNameForPage(val["report"]);
+        console.log(JSON.stringify(this.selectModel));
+        console.log(JSON.stringify(this.listModel));
+        if (this.childForm != null) {
+          this.childForm.setModel(this.selectModel);
+          this.childForm.buildForm();
+        }
+        if (this.childList != null) {
+          this.childList.hideTable();
+          this.childList.setModel(this.listModel);
+          this.childList.search(history.response);
+        }
       }
     });
   }
@@ -78,10 +166,16 @@ export class BasicReportComponent {
     this.dynamicFormGroup.statusChanges.subscribe((k) => {
       console.log("status:" + k);
     });*/
+    this.dynamicFormGroup.statusChanges.subscribe((k) => {
+      console.log("status:" + k);
+      if (k == "VALID") this.isValid = true;
+      else this.isValid = false;
+    });
   }
 
   async search() {
     var criteria = new Map();
+
     Object.keys(this.selectModel).forEach((k) => {
       const fieldProps = this.selectModel[k];
       //onsole.log(k + ":" + this.dynamicFormGroup.get(k).value);
@@ -100,11 +194,16 @@ export class BasicReportComponent {
         });
     });
     console.log("crit in" + JSON.stringify(Array.from(criteria.entries())));
-    //var s = await this.store.getData(criteria);
-    //console.log("s=" + s[0].userid);
-    this.showList = true;
+    this.isLoading = true;
+    try {
+      var s = await this.store.getData(criteria, this.reportName);
+      this.isLoading = false;
+    } catch (Error) {
+      console.log("Error"!);
+      this.isLoading = false;
+    }
 
-    this.childList.search(test);
+    this.childList.search(s);
     this.showList = true;
   }
 }

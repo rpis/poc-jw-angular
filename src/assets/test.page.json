@@ -9,20 +9,27 @@
       "value": "",
       "label": "Numer rachunku",
       "rules": {
-        "required": true
+        "required": true,
+        "number": true
       }
     },
     "dateFrom": {
       "row": "1",
       "type": "date",
       "value": "",
-      "label": "Od daty"
+      "label": "Od daty",
+      "rules": {
+        "required": true
+      }
     },
     "dateTo": {
       "row": "1",
       "type": "date",
       "value": "",
-      "label": "Do daty"
+      "label": "Do daty",
+      "rules": {
+        "required": true
+      }
     },
 
     "filename": {

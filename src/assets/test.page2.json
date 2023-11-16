@@ -9,20 +9,27 @@
       "value": "",
       "label": "Numer aca",
       "rules": {
-        "required": true
+        "required": true,
+        "number": true
       }
     },
     "dateFrom": {
       "row": "1",
       "type": "date",
       "value": "",
-      "label": "Od daty"
+      "label": "Od daty",
+      "rules": {
+        "required": true
+      }
     },
     "dateTo": {
       "row": "1",
       "type": "date",
       "value": "",
-      "label": "Do daty"
+      "label": "Do daty",
+      "rules": {
+        "required": true
+      }
     },
 
     "filename": {
@@ -40,7 +47,7 @@
   },
   "list": {
     "userid": {
-      "visualName": "userid"
+      "visualName": "Identyfikator bankstera"
     },
     "modkey1": {
       "visualName": "modkey1"

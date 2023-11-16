@@ -1,12 +1,18 @@
 <mat-toolbar color="primary">
-  <div>
+  <div *ngIf="loginDisplay">
     <button mat-icon-button (click)="onToggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
+  <div>
+    <span *ngIf="loginDisplay">{{ user.name }}</span>
+  </div>
   <span class="spacer"></span>
   <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">
     Login
+  </button>
+  <button mat-raised-button *ngIf="loginDisplay" (click)="onLogout()">
+    Logout
   </button>
 
   <button mat-icon-button (click)="showMessages()">
@@ -18,3 +24,34 @@
     >
   </button>
 </mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #sidenav
+    class="sidenav"
+    fixedInViewport="true"
+    mode="over"
+    [opened]="showSidenav"
+    position="end"
+  >
+    <mat-toolbar
+      ><button mat-raised-button (click)="hideMessages()">
+        Close
+      </button></mat-toolbar
+    >
+
+    <mat-nav-list class="notification-list">
+      <mat-list-item
+        *ngFor="let message of messages"
+        (click)="goToMessageObject(message)"
+      >
+        <span matListItemTitle>{{ message.type }}</span>
+        <span matListItemSubtitle>{{ message.message }}</span>
+        <button mat-icon-button matListItemMeta>
+          <mat-icon>info</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content> </mat-sidenav-content
+></mat-sidenav-container>
